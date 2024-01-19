@@ -14,7 +14,7 @@ const NewtaskForm = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         const data = {title,body,priority};
-        const res  = await fetch("http://localhost:3000/api/tasks",{
+        const res  = await fetch(`${location.origin}/api/tasks`,{
             method:"POST",
             headers: {"content-type" : "application/json"},
             body : JSON.stringify(data)

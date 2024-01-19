@@ -8,12 +8,15 @@ import Form from "../Form";
 
 export default function Login() {
 
-  const [error , setError] = useState('')
+  const [error , setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async(event,email,password) =>{
     event.preventDefault();
     setError('')
+    setLoading(true);
     
     const supabase = createClientComponentClient();
 
@@ -21,6 +24,8 @@ export default function Login() {
       email,
       password
     })
+
+    setLoading(false);
     if(error)
     {
       setError(error.message);
@@ -35,6 +40,7 @@ export default function Login() {
       Login
       <Form handleSubmit={handleSubmit}/>
       {error && <>{error}</>}
+      {loading && <>logging u in ....</>}
     </div>
   )
 }

@@ -8,11 +8,14 @@ import Form from "../Form";
 export default function Register() {
 
   const [error , setError] = useState('')
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async(event,email,password) =>{
     event.preventDefault();
     setError('')
+    setLoading(true);
     
     const supabase = createClientComponentClient();
 
@@ -23,6 +26,7 @@ export default function Register() {
         emailRedirectTo : `${location.origin}/api/auth/callback`
       }
     })
+    setLoading(false);
     if(error)
     {
       setError(error.message);
@@ -37,6 +41,7 @@ export default function Register() {
       Register
       <Form handleSubmit={handleSubmit}/>
       {error && <>{error}</>}
+      {loading && <>registering u... wait....</>}
     </div>
   )
 }
