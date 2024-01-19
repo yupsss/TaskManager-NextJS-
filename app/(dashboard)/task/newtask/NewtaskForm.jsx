@@ -13,21 +13,24 @@ const NewtaskForm = () => {
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        const data = {title,body,priority,user_email:"gillyatin@gmail.com"};
-        const res  = await fetch("http://localhost:5000/tickets",{
+        const data = {title,body,priority};
+        const res  = await fetch("http://localhost:3000/api/tasks",{
             method:"POST",
             headers: {"content-type" : "application/json"},
             body : JSON.stringify(data)
         })
 
-        if(res.status === 201)
+        const json = await res.json();
+
+        
+        if(json.error)
+        console.log(json.error.message);
+
+        if(json.data)
         {
             router.push('/task');
             router.refresh();
         }
-        
-        else 
-        console.log("error");
     }
     return ( 
     <>
